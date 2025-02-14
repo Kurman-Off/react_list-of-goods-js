@@ -22,23 +22,30 @@ export const goodsFromServer = [
 export const App = () => {
   const [goods, setGoods] = useState([...goodsFromServer]);
   const [activeButton, setActiveButton] = useState('');
+  const [isReversed, setIsReversed] = useState(false);
 
   function SortAlphabetically() {
-    setGoods(prevGoods =>
-      [...prevGoods].slice().sort((a, b) => a.localeCompare(b))
-    );
+    setGoods(prevGoods => {
+      const sortedGoods  = [...prevGoods]
+      .slice()
+      .sort((a, b) => a.localeCompare(b))
 
+      return isReversed ? sortedGoods.reverse() : sortedGoods;
+    });
+
+    setIsReversed(false);
     setActiveButton('alphabet');
   }
 
   function SortByLength() {
-    setGoods(prevGoods =>
-      [...prevGoods]
+    setGoods(prevGoods => {
+     const sortedGoods =  [...prevGoods]
         .slice()
-        .sort(
-          (a, b) => a.replace(/\s/g, '').length - b.replace(/\s/g, '').length,
-        )
-    );
+        .sort((a, b) =>
+          a.replace(/\s/g, '').length - b.replace(/\s/g, '').length)
+
+        return isReversed ? sortedGoods.reverse() : sortedGoods;
+    });
 
     setActiveButton('length');
   }
@@ -52,12 +59,14 @@ export const App = () => {
         : reversed;
     });
 
+    setIsReversed(true);
     setActiveButton('reverse');
   }
 
   function ResetList() {
     setGoods([...goodsFromServer]);
 
+    setIsReversed('false');
     setActiveButton('reset');
   }
 
