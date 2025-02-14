@@ -1,3 +1,7 @@
+/* eslint-disable indent */
+/* eslint-disable comma-dangle */
+/* eslint-disable prettier/prettier */
+/* eslint-disable function-paren-newline */
 import 'bulma/css/bulma.css';
 import './App.scss';
 import { useState } from 'react';
@@ -21,7 +25,7 @@ export const App = () => {
 
   function SortAlphabetically() {
     setGoods(prevGoods =>
-      [...prevGoods].slice().sort((a, b) => a.localeCompare(b)),
+      [...prevGoods].slice().sort((a, b) => a.localeCompare(b))
     );
 
     setActiveButton('alphabet');
@@ -33,10 +37,10 @@ export const App = () => {
         .slice()
         .sort(
           (a, b) => a.replace(/\s/g, '').length - b.replace(/\s/g, '').length,
-        ),
+        )
     );
 
-    setActiveButton('lenght');
+    setActiveButton('length');
   }
 
   function ReverseList() {
@@ -64,7 +68,7 @@ export const App = () => {
 
         <button
           type="button"
-          className={`button is-info ${activeButton === 'lenght' ? '' : 'is-light'}`}
+          className={`button is-info ${activeButton === 'length' ? '' : 'is-light'}`}
           onClick={SortByLength}
         >
           Sort by length
@@ -78,13 +82,16 @@ export const App = () => {
           Reverse
         </button>
 
-        <button
-          type="button"
-          className={`button is-info ${activeButton === 'reset' ? '' : 'is-light'}`}
-          onClick={ResetList}
-        >
-          Reset
-        </button>
+        {activeButton && activeButton !== 'reset'&& (
+            <button
+              type="button"
+              className={`button is-info ${activeButton === 'reset' ? '' : 'is-light'}`}
+              onClick={ResetList}
+            >
+              Reset
+            </button>
+          )
+        }
       </div>
 
       <ul>
