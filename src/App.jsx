@@ -44,7 +44,13 @@ export const App = () => {
   }
 
   function ReverseList() {
-    setGoods(prevGood => [...prevGood].reverse());
+    setGoods(prevGoods => {
+      const reversed = [...prevGoods].reverse();
+
+      return reversed.every((good, index) => good === goodsFromServer[index])
+        ? [...goodsFromServer]
+        : reversed;
+    });
 
     setActiveButton('reverse');
   }
@@ -82,7 +88,7 @@ export const App = () => {
           Reverse
         </button>
 
-        {activeButton && activeButton !== 'reset'&& (
+        {goods.some((good, index) => good !== goodsFromServer[index]) && (
             <button
               type="button"
               className={`button is-info ${activeButton === 'reset' ? '' : 'is-light'}`}
@@ -90,8 +96,8 @@ export const App = () => {
             >
               Reset
             </button>
-          )
-        }
+        )
+      }
       </div>
 
       <ul>
