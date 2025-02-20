@@ -33,7 +33,6 @@ export const App = () => {
       return isReversed ? sortedGoods.reverse() : sortedGoods;
     });
 
-    setIsReversed(false);
     setActiveButton('alphabet');
   }
 
@@ -42,7 +41,7 @@ export const App = () => {
      const sortedGoods =  [...prevGoods]
         .slice()
         .sort((a, b) =>
-          a.replace(/\s/g, '').length - b.replace(/\s/g, '').length)
+          a.length - b.length)
 
         return isReversed ? sortedGoods.reverse() : sortedGoods;
     });
@@ -59,15 +58,15 @@ export const App = () => {
         : reversed;
     });
 
-    setIsReversed(true);
-    setActiveButton('reverse');
+    setIsReversed(prev => !prev);
+    // setActiveButton('reverse');
   }
 
   function ResetList() {
     setGoods([...goodsFromServer]);
 
-    setIsReversed('false');
-    setActiveButton('reset');
+    setIsReversed(false);
+    setActiveButton('');
   }
 
   return (
@@ -91,7 +90,7 @@ export const App = () => {
 
         <button
           type="button"
-          className={`button is-info ${activeButton === 'reverse' ? '' : 'is-light'}`}
+          className={`button is-info ${isReversed ? '' : 'is-light'}`}
           onClick={ReverseList}
         >
           Reverse
