@@ -37,15 +37,14 @@ export const App = () => {
   }
 
   function SortByLength() {
-    setGoods(prevGoods => {
-     const sortedGoods =  [...prevGoods]
-        .slice()
-        .sort((a, b) =>
-          a.length - b.length)
+    const sortedGoods =  [...goods].sort((a, b) => {
+      return isReversed
+        ? b.length - a.length
+        : a.length - b.length;
+      }
+    );
 
-        return isReversed ? sortedGoods.reverse() : sortedGoods;
-    });
-
+    setGoods(sortedGoods);
     setActiveButton('length');
   }
 
